@@ -1,0 +1,93 @@
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <title>CSE 341 Final Project</title>
+            <script type="module" src="/js/final.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase.js"></script>
+            <script>
+                var config = {
+                    apiKey: "AIzaSyDrz-Otblc0NPxd-IWqb5Kn25b9kU2-rVA",
+                    authDomain: "wcsar-279503.firebaseapp.com",
+                };
+                firebase.initializeApp(config);
+            </script>
+            <link rel="stylesheet" href="/css/main.css">
+        </head>
+        <body>
+          <main>
+            <section>
+              <div>Authentication Using Google Identity Platform - Result: <span id="authResult">Waiting to sign in...</span></div><br>
+              <label for="email">Email</label>
+              <input type="text" id="email" placeholder="Enter tester@byui.edu"><br>
+              <label for="password">Password</label>
+              <input type="text" id="password" placeholder="Enter CSE341"><br>
+              <button id="btnLogIn">Log In</button>
+
+              <h3>HTTP METHOD: GET</h3>
+              <p>Retrieve a member directory from the /members end point</p>
+              <button id="btnAllMembers">Get All Members</button>
+              
+              <hr>
+              <p>Retrieve member detail by ID from the /members/:memberID end point</p>
+              <label for="memberID">Member ID:</label>
+              <input type="text" id="memberID" placeholder="Enter 1000 or 1001"><br>
+              <button id="btnGetMember">Get Member Detail</button>
+              
+              <hr>
+              <h3>HTTP METHOD: POST</h3>
+              <p>Create new phone using the /members/:memberID/phone end point</p>
+              <label for="phone_type_id">Phone type</label>
+              <select class="form-control" id="phone_type_id" name="phone_type_id" required>
+                  <option value="">Choose...</option>
+                  <option value="1">Mobile</option>
+                  <option value="2">Home</option>
+                  <option value="3">Work</option>
+              </select><br>               
+              <label for="phone_number">Phone</label>
+              <input type="tel" name="phone_number" id="phone_number" placeholder="123-123-1234" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required><br>           
+              <label for="phone_memberID">Member ID</label><br>
+              <input type="text" id="phone_memberID" placeholder="Enter 1000 or 1001"><br>
+              <button id="btnAddMemberPhone">Add Phone</button>
+
+              <hr>
+              <h3>HTTP METHOD: PATCH</h3>
+              <p>Update the new phone using the /members/phone/:phoneID end point</p>
+              <label for="update_phone_type_id">Phone type</label>
+              <select class="form-control" id="update_phone_type_id" name="update_phone_type_id" required>
+                  <option value="">Choose...</option>
+                  <option value="1">Mobile</option>
+                  <option value="2">Home</option>
+                  <option value="3">Work</option>
+              </select><br>               
+              <label for="update_phone_number">Phone</label>
+              <input type="tel" name="update_phone_number" id="update_phone_number" placeholder="123-123-1234" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required><br>
+              <label for="update_phone_number_id">Phone ID</label><br>
+              <input type="text" id="update_phone_number_id" placeholder="Enter 1000 or 1001"><br>         
+              <button id="btnUpdateMemberPhone">Update Phone</button>
+
+              <hr>
+              <h3>HTTP METHOD: DELETE</h3>
+              <p>Delete new phone we created using the /members/phone/:phoneID end point</p>              
+              <label for="phone_number_id">Phone ID</label>
+              <input type="text" id="phone_number_id" placeholder="Enter ID for phone"><br>
+              <button id="btnDeleteMemberPhone">Delete Phone</button>
+            </section>
+
+            <section>
+              <h2>JSON results:</h2>
+              <div id="results""></div>
+            </section>
+          </main>
+          <script>
+            firebase.auth().onAuthStateChanged(function(user) {
+              if (user) {
+                document.getElementById("authResult").innerHTML = "Welcome, " + user.email;
+              } else {
+                document.getElementById("authResult").innerHTML = "No user signed in.";
+              }
+            });
+        
+          </script>
+        </body>
+
+    </html>
